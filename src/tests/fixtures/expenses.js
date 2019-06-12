@@ -1,6 +1,6 @@
 import moment from 'moment'
 
-export default [{
+const expenses = [{
   id: '1',
   description: 'Gum',
   note: '',
@@ -19,3 +19,15 @@ export default [{
   amount: '45.00',
   createdAt: moment(0).add(4, 'days').valueOf()
 }]
+
+const calcTotal = () => {
+  let total = 0
+  expenses.forEach((expense) => {
+    total += Number(expense.amount)
+  })
+  return total
+}
+
+const expensesTotal = calcTotal()
+
+export { expenses as default, expensesTotal }
