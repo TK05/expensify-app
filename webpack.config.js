@@ -10,7 +10,7 @@ module.exports = (env) => {
     mode: 'development',
     entry: './src/index.jsx',
     output: {
-      path: path.resolve(__dirname, 'public/scripts'),
+      path: path.resolve(__dirname, 'public/dist'),
       filename: 'bundle.js'
     },
     module: {
@@ -47,7 +47,7 @@ module.exports = (env) => {
     devtool: isProduction ? 'source-map' : 'inline-source-map',
     devServer: {
       contentBase: path.resolve(__dirname, 'public'),
-      publicPath: '/scripts/',
+      publicPath: '/dist/',
       watchContentBase: true,
       hot: true,
       host: '0.0.0.0',
