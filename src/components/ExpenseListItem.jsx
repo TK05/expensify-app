@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
+import moment from 'moment'
 
 
 const propTypes = {
@@ -18,7 +19,11 @@ export default function ExpenseListItem({
       <Link to={`/edit/${id}`}>
         <h3>{description}</h3>
       </Link>
-      <p>{amount} - {createdAt}</p>
+      <p>
+        {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount)}
+        {' '}-{' '}
+        {moment(createdAt).format('MMMM Do, YYYY')}
+      </p>
     </div>
   )
 }
