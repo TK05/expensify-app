@@ -1,8 +1,8 @@
 export default (expenses) => {
-  let expensesTotal = 0
-  expenses.forEach((expense) => {
-    expensesTotal += Number(expense.amount)
-  })
+  const total = expenses.reduce(
+    (sum, value) => sum + Number(value.amount),
+    0
+  )
 
-  return expensesTotal
+  return total
 }
