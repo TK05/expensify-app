@@ -5,6 +5,7 @@ import 'normalize.css'
 
 import AppRouter from './routers/AppRouter'
 import configureStore from './store/configureStore'
+import './firebase/firebase'
 import './styles/styles.scss'
 
 

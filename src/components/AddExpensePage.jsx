@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
 import ExpenseForm from './ExpenseForm'
-import { addExpense } from '../actions/expenses'
+import { startAddExpense } from '../actions/expenses'
 
 
 export class AddExpensePage extends React.Component {
@@ -32,7 +32,7 @@ export class AddExpensePage extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  addNewExpense: expense => dispatch(addExpense(expense))
+  addNewExpense: expense => dispatch(startAddExpense(expense))
 })
 
 export default connect(null, mapDispatchToProps)(AddExpensePage)
