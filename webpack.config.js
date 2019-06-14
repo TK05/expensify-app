@@ -1,16 +1,13 @@
-import DotEnv from 'dotenv'
-
-
 const path = require('path')
 const webpack = require('webpack')
 const MiniCssExtraPlugin = require('mini-css-extract-plugin')
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development'
-
+/* eslint-disable global-require */
 if (process.env.NODE_ENV === 'test') {
-  DotEnv.config({ path: '.env.test' })
+  require('dotenv').config({ path: '.env.test' })
 } else if (process.env.NODE_ENV === 'development') {
-  DotEnv.config({ path: '.env.development' })
+  require('dotenv').config({ path: '.env.development' })
 }
 
 module.exports = (env) => {
