@@ -1,14 +1,35 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { NavLink } from 'react-router-dom'
+import { connect } from 'react-redux'
+
+import { startLogout as logoutAction } from '../actions/auth'
 
 
-export default function Header() {
+const propTypes = {
+  startLogout: PropTypes.func.isRequired
+}
+
+export function Header({ startLogout }) {
   return (
     <header>
       <h1>Expensify</h1>
-      <NavLink to="/" activeClassName="is-active" exact>Dashboard</NavLink>
+      <NavLink to="/dashboard" activeClassName="is-active">Dashboard</NavLink>
       <NavLink to="/create" activeClassName="is-active">Create Expense</NavLink>
-      <NavLink to="/help" activeClassName="is-active">Help</NavLink>
+      <button
+        type="button"
+        onClick={startLogout}
+      >
+        Logout
+      </button>
     </header>
   )
 }
+
+Header.propTypes = propTypes
+
+const mapDispatchToProps = dispatch => ({
+  startLogout: () => dispatch(logoutAction())
+})
+
+export default connect(null, mapDispatchToProps)(Header)
