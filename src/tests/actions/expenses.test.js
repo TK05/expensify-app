@@ -4,6 +4,7 @@ import thunk from 'redux-thunk'
 import {
   startAddExpense,
   addExpense,
+  startEditExpense,
   editExpense,
   startRemoveExpense,
   removeExpense,
@@ -39,7 +40,7 @@ test('should setup remove expense action object', () => {
 })
 
 test('should remove expenses from database', (done) => {
-  const store = createMockStore()
+  const store = createMockStore({})
   const { id } = expenses[0]
 
   store.dispatch(startRemoveExpense({ id })).then(() => {
@@ -66,6 +67,32 @@ test('should setup edit expense action object', () => {
     }
   }
   expect(action).toEqual(expected)
+})
+
+test('should edit expense from database', (done) => {
+  const store = createMockStore({})
+  const { id, ...expense } = expenses[0]
+  const updates = {
+    description: 'Test edit',
+    amount: '987.43'
+  }
+
+  store.dispatch(startEditExpense(id, updates)).then(() => {
+    const actions = store.getActions()
+    expect(actions[0]).toEqual({
+      type: 'EDIT_EXPENSE',
+      id,
+      updates
+    })
+    return database.ref(`expenses/${id}`).once('value')
+      .then((snapshot) => {
+        expect(snapshot.val()).toEqual({
+          ...expense,
+          ...updates
+        })
+        done()
+      })
+  })
 })
 
 test('should setup add expense action object with provided values', () => {
@@ -138,7 +165,7 @@ test('should setup set expense action object with data', () => {
 })
 
 test('should fetch the expenses from database', (done) => {
-  const store = createMockStore()
+  const store = createMockStore({})
   store.dispatch(startSetExpenses()).then(() => {
     const actions = store.getActions()
     expect(actions[0]).toEqual({

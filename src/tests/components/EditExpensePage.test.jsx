@@ -5,20 +5,20 @@ import { EditExpensePage } from '../../components/EditExpensePage'
 import expenses from '../fixtures/expenses'
 
 /* eslint-disable no-undef */
-let editExpenseItemSpy
+let editExpenseSpy
 let removeExpenseSpy
 let historySpy
 let wrapper
 const testExpense = expenses[0]
 
 beforeEach(() => {
-  editExpenseItemSpy = jest.fn()
+  editExpenseSpy = jest.fn()
   removeExpenseSpy = jest.fn()
   historySpy = { push: jest.fn() }
   wrapper = shallow(
     <EditExpensePage
       expense={testExpense}
-      editExpenseItem={editExpenseItemSpy}
+      editExpense={editExpenseSpy}
       removeExpense={removeExpenseSpy}
       history={historySpy}
     />
@@ -32,7 +32,7 @@ test('should render EditExpensePage correctly', () => {
 test('should handle edit expense onSubmit', () => {
   wrapper.find('ExpenseForm').prop('onSubmit')(testExpense)
   expect(historySpy.push).toHaveBeenLastCalledWith('/')
-  expect(editExpenseItemSpy).toHaveBeenLastCalledWith(testExpense.id, testExpense)
+  expect(editExpenseSpy).toHaveBeenLastCalledWith(testExpense.id, testExpense)
 })
 
 test('should handle remove expense click', () => {
