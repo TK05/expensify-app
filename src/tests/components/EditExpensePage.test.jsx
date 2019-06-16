@@ -6,20 +6,20 @@ import expenses from '../fixtures/expenses'
 
 /* eslint-disable no-undef */
 let editExpenseItemSpy
-let removeExpenseItemSpy
+let removeExpenseSpy
 let historySpy
 let wrapper
 const testExpense = expenses[0]
 
 beforeEach(() => {
   editExpenseItemSpy = jest.fn()
-  removeExpenseItemSpy = jest.fn()
+  removeExpenseSpy = jest.fn()
   historySpy = { push: jest.fn() }
   wrapper = shallow(
     <EditExpensePage
       expense={testExpense}
       editExpenseItem={editExpenseItemSpy}
-      removeExpenseItem={removeExpenseItemSpy}
+      removeExpense={removeExpenseSpy}
       history={historySpy}
     />
   )
@@ -38,5 +38,5 @@ test('should handle edit expense onSubmit', () => {
 test('should handle remove expense click', () => {
   wrapper.find('button').simulate('click')
   expect(historySpy.push).toHaveBeenLastCalledWith('/')
-  expect(removeExpenseItemSpy).toHaveBeenLastCalledWith({ id: testExpense.id })
+  expect(removeExpenseSpy).toHaveBeenLastCalledWith({ id: testExpense.id })
 })

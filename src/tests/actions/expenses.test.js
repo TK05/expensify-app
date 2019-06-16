@@ -5,6 +5,7 @@ import {
   startAddExpense,
   addExpense,
   editExpense,
+  startRemoveExpense,
   removeExpense,
   startSetExpenses,
   setExpenses
@@ -35,6 +36,24 @@ test('should setup remove expense action object', () => {
     id: '123abc'
   }
   expect(action).toEqual(expected)
+})
+
+test('should remove expenses from database', (done) => {
+  const store = createMockStore()
+  const { id } = expenses[0]
+
+  store.dispatch(startRemoveExpense({ id })).then(() => {
+    const actions = store.getActions()
+    expect(actions[0]).toEqual({
+      type: 'REMOVE_EXPENSE',
+      id
+    })
+    return database.ref(`expenses/${id}`).once('value')
+      .then((snapshot) => {
+        expect(snapshot.val()).toBeFalsy()
+        done()
+      })
+  })
 })
 
 test('should setup edit expense action object', () => {

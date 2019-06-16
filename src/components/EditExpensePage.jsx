@@ -3,14 +3,14 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import ExpenseForm from './ExpenseForm'
-import { editExpense, removeExpense } from '../actions/expenses'
+import { editExpense, startRemoveExpense } from '../actions/expenses'
 
 
 export class EditExpensePage extends React.Component {
   static propTypes = {
     expense: PropTypes.objectOf(PropTypes.any).isRequired,
     editExpenseItem: PropTypes.func.isRequired,
-    removeExpenseItem: PropTypes.func.isRequired,
+    removeExpense: PropTypes.func.isRequired,
     history: PropTypes.objectOf(PropTypes.any).isRequired
   }
 
@@ -21,8 +21,8 @@ export class EditExpensePage extends React.Component {
   }
 
   onRemove = () => {
-    const { removeExpenseItem, expense, history } = this.props
-    removeExpenseItem({ id: expense.id })
+    const { removeExpense, expense, history } = this.props
+    removeExpense({ id: expense.id })
     history.push('/')
   }
 
@@ -52,7 +52,7 @@ const mapStateToProps = ({ expenses }, { match }) => ({
 
 const mapDispatchToProps = dispatch => ({
   editExpenseItem: (id, updates) => dispatch(editExpense(id, updates)),
-  removeExpenseItem: id => dispatch(removeExpense(id))
+  removeExpense: id => dispatch(startRemoveExpense(id))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditExpensePage)
