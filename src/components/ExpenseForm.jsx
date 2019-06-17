@@ -8,7 +8,12 @@ import 'react-dates/lib/css/_datepicker.css'
 
 export default class ExpenseForm extends React.Component {
   static propTypes = {
-    expense: PropTypes.objectOf(PropTypes.any),
+    expense: PropTypes.shape({
+      description: PropTypes.string,
+      note: PropTypes.string,
+      amount: PropTypes.string,
+      createdAt: PropTypes.number
+    }),
     onSubmit: PropTypes.func.isRequired,
     typeString: PropTypes.string.isRequired
   }
@@ -43,7 +48,7 @@ export default class ExpenseForm extends React.Component {
 
   onAmountChange = (e) => {
     const amount = e.target.value
-    if (!amount || amount.match(/^\d{1,}(\.\d{0,2})?$/)) {
+    if (!amount || amount.match(/^[0-9]{1,}(\.[0-9]{0,2})?$/)) {
       this.setState(() => ({ amount }))
     }
   }
@@ -64,7 +69,7 @@ export default class ExpenseForm extends React.Component {
     } = this.state
     const { onSubmit } = this.props
     e.preventDefault()
-    if (!description && !amount) {
+    if (!description || !amount) {
       this.setState(() => ({
         error: 'Please provide description and amount'
       }))
