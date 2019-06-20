@@ -71,31 +71,42 @@ export class ExpenseListFilters extends React.Component {
     const { calendarFocused } = this.state
 
     return (
-      <div>
-        <input
-          type="text"
-          value={text}
-          onChange={this.onTextChange}
-        />
-        <select
-          value={sortBy}
-          onChange={this.onSortChange}
-        >
-          <option value="date">Date</option>
-          <option value="amount">Amount</option>
-        </select>
-        <DateRangePicker
-          startDate={startDateObj}
-          startDateId="startDate"
-          endDate={endDateObj}
-          endDateId="endDate"
-          onDatesChange={this.onDatesChange}
-          focusedInput={calendarFocused}
-          onFocusChange={this.onFocusChange}
-          numberOfMonths={1}
-          isOutsideRange={() => false}
-          showClearDates
-        />
+      <div className="content-container">
+        <div className="input-group">
+          <div className="input-group__item">
+            <input
+              className="text-input"
+              placeholder="Search Expenses"
+              type="text"
+              value={text}
+              onChange={this.onTextChange}
+            />
+          </div>
+          <div className="input-group__item">
+            <select
+              className="select"
+              value={sortBy}
+              onChange={this.onSortChange}
+            >
+              <option value="date">Date</option>
+              <option value="amount">Amount</option>
+            </select>
+          </div>
+          <div className="input-group__item">
+            <DateRangePicker
+              startDate={startDateObj}
+              startDateId="startDate"
+              endDate={endDateObj}
+              endDateId="endDate"
+              onDatesChange={this.onDatesChange}
+              focusedInput={calendarFocused}
+              onFocusChange={this.onFocusChange}
+              numberOfMonths={1}
+              isOutsideRange={() => false}
+              showClearDates
+            />
+          </div>
+        </div>
       </div>
     )
   }

@@ -89,39 +89,43 @@ export default class ExpenseForm extends React.Component {
       description, note, amount, createdAt, calendarFocused, error, typeString
     } = this.state
     return (
-      <div>
-        {error && <p>{error}</p>}
-        <form onSubmit={this.onSubmit}>
-          <input
-            type="text"
-            placeholder="Description"
-            value={description || ''}
-            onChange={this.onDescriptionChange}
-          />
-          <input
-            type="text"
-            placeholder="Amount"
-            value={amount || ''}
-            onChange={this.onAmountChange}
-          />
-          <SingleDatePicker
-            date={createdAt}
-            onDateChange={this.onDateChange}
-            focused={calendarFocused}
-            onFocusChange={this.onFocusChange}
-            numberOfMonths={1}
-            isOutsideRange={() => false}
-          />
-          <textarea
-            placeholder="Add a note for your expense (optional)"
-            value={note}
-            onChange={this.onNoteChange}
-          />
-          <button type="submit">
+      <form className="form" onSubmit={this.onSubmit}>
+        {error && <p className="form__error">{error}</p>}
+        <input
+          className="text-input"
+          type="text"
+          placeholder="Description"
+          value={description || ''}
+          onChange={this.onDescriptionChange}
+        />
+        <input
+          className="text-input"
+          type="text"
+          placeholder="Amount"
+          value={amount || ''}
+          onChange={this.onAmountChange}
+        />
+        <SingleDatePicker
+          date={createdAt}
+          onDateChange={this.onDateChange}
+          focused={calendarFocused}
+          onFocusChange={this.onFocusChange}
+          numberOfMonths={1}
+          isOutsideRange={() => false}
+          block
+        />
+        <textarea
+          className="textarea"
+          placeholder="Add a note for your expense (optional)"
+          value={note}
+          onChange={this.onNoteChange}
+        />
+        <div>
+          <button className="button" type="submit">
             {`${typeString} Expense`}
           </button>
-        </form>
-      </div>
+        </div>
+      </form>
     )
   }
 }

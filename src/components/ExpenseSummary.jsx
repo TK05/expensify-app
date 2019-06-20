@@ -1,26 +1,34 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 import selectExpenses from '../selectors/expenses'
 import sumAllExpenses from '../selectors/expenses-total'
 
 const propTypes = {
-  expensesLength: PropTypes.number,
+  expensesCount: PropTypes.number,
   expensesTotal: PropTypes.number
 }
 
 const defaultProps = {
-  expensesLength: 0,
+  expensesCount: 0,
   expensesTotal: 0
 }
 
-export function ExpenseSummary({ expensesLength, expensesTotal }) {
-  const expensesWord = expensesLength === 1 ? 'expense' : 'expenses'
+export function ExpenseSummary({ expensesCount, expensesTotal }) {
+  const expensesWord = expensesCount === 1 ? 'expense' : 'expenses'
   const formattedSum = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(expensesTotal)
   return (
-    <div>
-      <h3>Viewing {expensesLength} {expensesWord} totalling {formattedSum}</h3>
+    <div className="page-header">
+      <div className="content-container">
+        <h1 className="page-header__title">
+          Viewing <span>{expensesCount}</span> {expensesWord} totalling <span>{formattedSum}</span>
+        </h1>
+        <div className="page-header__actions">
+          <Link className="button" to="/create">Add Expense</Link>
+        </div>
+      </div>
     </div>
   )
 }
@@ -29,7 +37,7 @@ ExpenseSummary.propTypes = propTypes
 ExpenseSummary.defaultProps = defaultProps
 
 const mapStateToProps = state => ({
-  expensesLength: selectExpenses(state.expenses, state.filters).length,
+  expensesCount: selectExpenses(state.expenses, state.filters).length,
   expensesTotal: sumAllExpenses(state.expenses)
 })
 
